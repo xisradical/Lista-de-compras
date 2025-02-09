@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    <div class="data-compra">
+        <label for="dataCompra">Data da Compra:</label>
+        <input type="date" id="dataCompra" value="2023-10-01">
+    </div>
+    <div class="info-box">
+        <label for="valorTotalGasto">Valor Total a Ser Gasto (R$):</label>
+        <input type="number" id="valorTotalGasto" step="0.01" min="0" value="0.00" oninput="calcularDisponivel()">
+        <label for="valorDisponivel">Valor Disponível (R$):</label>
+        <span id="valorDisponivel">R$ 0.00</span>
+    </div>
+    <button onclick="adicionarLinha()">Adicionar Item</button>
+    <table id="listaCompras">
+        <thead>
+            <tr>
+                <th>Nome do Item</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário (R$)</th>
+                <th>Total por Item (R$)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linhas serão adicionadas aqui -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="total">Total Geral:</td>
+                <td id="totalGeral">R$ 0.00</td>
+            </tr>
+        </tfoot>
+    </table>
+    <button onclick="salvarCompra()">Salvar Compra</button>
+    <button onclick="exportarParaExcel()">Exportar para Excel</button>
+
+    <div class="historico">
+        <h2>Histórico de Compras</h2>
+        <label for="filtroData">Filtrar por Data:</label>
+        <input type="date" id="filtroData" onchange="filtrarHistorico()">
+        <button class="remove-btn" onclick="limparHistorico()">Limpar Histórico</button>
+        <table id="historicoCompras">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Valor Total a Ser Gasto (R$)</th>
+                    <th>Total Geral (R$)</th>
+                    <th>Diferença (R$)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Histórico será exibido aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Registra o Service Worker para funcionar offline
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch((error) => console.error('Erro ao registrar:', error));
+        }
+    </script>
+</body>
+</html>

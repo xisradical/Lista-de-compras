@@ -1,0 +1,1 @@
+self.addEventListener("install",a=>{a.waitUntil(caches.open("app-cache").then(a=>a.addAll(["/","/index.html","/styles.css","/script.js"])))}),self.addEventListener("fetch",a=>{a.respondWith(caches.match(a.request).then(b=>b||fetch(a.request)))});
